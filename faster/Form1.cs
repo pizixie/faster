@@ -84,13 +84,14 @@ namespace faster
             /*
 $('#selectStore').val('R428').trigger('change');
 
-$('#selectSubfamily').val('10143').trigger('change');
+function select(){
+    $('#selectSubfamily').val('10143').trigger('change');
+    $('input[value="256GB"]').attr('checked','checked').trigger('change');
+    $('input[value="MN8V2ZP/A"]').attr('checked','checked').trigger('change');
+    $('button[name="submit"]').trigger('click');
+}
 
-$('input[value="128GB"]').attr('checked','checked').trigger('change');
-
-$('input[value="MN8P2ZP/A"]').attr('checked','checked').trigger('change');
-
-$('button[name="submit"]').trigger('click');
+setTimeout(select,200);
 
              */
         }
@@ -102,33 +103,11 @@ $('button[name="submit"]').trigger('click');
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var store = "R580";
-            var family = "10143";
-            var capacity = "128GB";
-            var product = "MNH02CH/A";
+            var script = textBoxScript.Text;
 
-            /// MN8P2ZP/A   iPhone 7 
-            /// MN4C2ZP/A   iPhone 7 PLUS
+            var args = new object[] { script };
 
-            //SubmitAction(store_id, buy_id);
-            SimulateSelect(store, family, capacity, product);
-        }
-
-        void SimulateSelect(string store, string family, string capacity, string product)
-        {
-            var bug = @"hel""lo";
-            Console.WriteLine(bug);
-
-            string s1 = $"$('#selectStore').val('{store}').trigger('change');\n";
-            string s2 = $"$('#selectSubfamily').val('{family}').trigger('change');\n";
-            string s3 = $"$('input[value='{ capacity} ']').attr('checked','checked').trigger('change');\n";
-            string s4 = $"$('input[value='{product}']').attr('checked','checked').trigger('change');\n";
-            var s5 = $"$('button[name='submit']').trigger('click');\n";
-
-            var script = s1 + s2 + s3 + s4 + s5;
-
-            webBrowser1.Document.InvokeScript("eval", new object[] { script });
-
+            webBrowser1.Document.InvokeScript("eval", args);
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

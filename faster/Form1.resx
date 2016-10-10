@@ -120,4 +120,21 @@
   <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="textBoxScript.Text" xml:space="preserve">
+    <value>$('#selectStore').val('R428').trigger('change');
+
+function select(){
+    $('#selectSubfamily').val('10143').trigger('change');
+    $('input[value="256GB"]').attr('checked','checked').trigger('change');
+    $('input[value="MN8V2ZP/A"]').attr('checked','checked').trigger('change');
+
+    setTimeout(ok,200);
+}
+
+function ok(){
+    $('button[name="submit"]').trigger('click');
+}
+
+setTimeout(select,200);</value>
+  </data>
 </root>

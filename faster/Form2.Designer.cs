@@ -40,7 +40,7 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(796, 413);
             this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://www.baidu.com/", System.UriKind.Absolute);
+            this.webBrowser1.Url = new System.Uri("https://reserve.cdn-apple.com/HK/zh_HK/reserve/iPhone/availability?channel=1", System.UriKind.Absolute);
             // 
             // button1
             // 
