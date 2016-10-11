@@ -40,7 +40,7 @@ namespace faster
                 var str2 = client.DownloadString(uri_avail);
                 var avail = JsonConvert.DeserializeObject<dynamic>(str2);
 
-                buy_id = textBoxBuy.Text;
+                //buy_id = textBoxBuy.Text;
 
                 var find = FindItem(avail, buy_id, ref store_id);
 
