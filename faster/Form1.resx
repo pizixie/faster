@@ -117,24 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="worker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="textBoxScript.Text" xml:space="preserve">
-    <value>$('#selectStore').val('R428').trigger('change');
+  <data name="textBoxScript1.Text" xml:space="preserve">
+    <value>function step1(store,family,capacity,product) {
+    //$('#selectStore').val('R428').trigger('change');
+    $('#selectStore').val(store).trigger('change');
 
-function select(){
-    $('#selectSubfamily').val('10143').trigger('change');
-    $('input[value="256GB"]').attr('checked','checked').trigger('change');
-    $('input[value="MN8V2ZP/A"]').attr('checked','checked').trigger('change');
+    function select() {
+        $('#selectSubfamily').val(family).trigger('change');
+        //$('#selectSubfamily').val('10143').trigger('change');
 
-    setTimeout(ok,200);
-}
+        $('input[value="'+capacity+'"]').attr('checked', 'checked').trigger('change');
+        //$('input[value="256GB"]').attr('checked','checked').trigger('change');
 
-function ok(){
-    $('button[name="submit"]').trigger('click');
-}
+        $('input[value="'+product+'"]').attr('checked', 'checked').trigger('change');
+        //$('input[value="MN8V2ZP/A"]').attr('checked','checked').trigger('change');
 
-setTimeout(select,200);</value>
+        setTimeout(ok, 200);
+    }
+
+    function ok() {
+        $('button[name="submit"]').trigger('click');
+    }
+
+    setTimeout(select, 200);
+}</value>
+  </data>
+  <data name="textBoxScript2.Text" xml:space="preserve">
+    <value>function step2(user,pwd) {
+    $('#appleId').val('').focus();
+    external.sendKeys(user);
+    //external.sendKeys('pizixie@hotmail.com');
+
+    $('#pwd').val('').focus();
+    external.sendKeys(pwd);
+    //external.sendKeys('123456');
+
+    $('label[for="remember-me"]').trigger('click');
+
+    $('#sign-in').trigger('click');
+}</value>
   </data>
 </root>

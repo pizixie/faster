@@ -11,9 +11,12 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Web;
 using mshtml;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace faster
 {
+    [ComVisible(true)]
     public partial class Form1 : Form
     {
         public Form1()
@@ -37,17 +40,26 @@ namespace faster
 
             while (true)
             {
-                var str2 = client.DownloadString(uri_avail);
-                var avail = JsonConvert.DeserializeObject<dynamic>(str2);
-
-                //buy_id = textBoxBuy.Text;
-
-                var find = FindItem(avail, buy_id, ref store_id);
-
-                if (find)
+                try
                 {
-                    break;
+                    var str2 = client.DownloadString(uri_avail);
+                    var avail = JsonConvert.DeserializeObject<dynamic>(str2);
+
+                    //buy_id = textBoxBuy.Text;
+
+                    var find = FindItem(avail, buy_id, ref store_id);
+
+                    if (find)
+                    {
+                        break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                Thread.Sleep(1000);
             }
 
             e.Result = new { StoreId = store_id, BuyId = buy_id };
@@ -99,20 +111,82 @@ setTimeout(select,200);
         private void Form1_Load(object sender, EventArgs e)
         {
             //backgroundWorker1.RunWorkerAsync();
+
+            webBrowser1.ObjectForScripting = this;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void sendKeys(string keys)
         {
-            var script = textBoxScript.Text;
-
-            var args = new object[] { script };
-
-            webBrowser1.Document.InvokeScript("eval", args);
+            //发送按键消息，防止登录时提示“恢复Apple ID”
+            SendKeys.SendWait(keys);
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Console.WriteLine(e.Url);
+
+            //连接几个操作步骤
+
+            if (e.Url.LocalPath == "/HK/zh_HK/reserve/iPhone/availability")
+            {
+                Console.WriteLine("第一步");
+            }
+
+            if (e.Url.LocalPath == "/IDMSWebAuth/signin")
+            {
+                Console.WriteLine("父窗口");
+            }
+
+            if (e.Url.LocalPath == "/appleauth/auth/signin")
+            {
+                Console.WriteLine("第二步");
+            }
+
+            if (e.Url.LocalPath == "/HK/zh_HK/reserve/iPhone")
+            {
+                Console.WriteLine("第三步");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var script = textBoxScript1.Text;
+
+            var args = new object[] { script };
+
+            webBrowser1.Document.InvokeScript("eval", args);
+
+            webBrowser1.Document.InvokeScript("step1", new object[] {
+                textBoxStore.Text,
+                textBoxFamily.Text,
+                textBoxCapacity.Text,
+                textBoxProduct.Text
+            });
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var script = textBoxScript2.Text;
+            var args = new object[] { script };
+
+            webBrowser1.Document.Window.Frames[0].Document.InvokeScript("eval", args);
+
+            webBrowser1.Document.Window.Frames[0].Document.InvokeScript("step2", new object[] {
+                textBoxUser.Text,
+                textBoxPwd.Text
+            });
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var script = textBoxScript3.Text;
+            var args = new object[] { script };
+
+            webBrowser1.Document.InvokeScript("eval", args);
+
+            webBrowser1.Document.InvokeScript("step3", new object[] {
+                textBoxPhoneNumber.Text
+            });
         }
     }
 }
