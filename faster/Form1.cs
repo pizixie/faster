@@ -48,7 +48,8 @@ namespace faster
                     var str2 = client.DownloadString(uri_avail);
                     var avail = JsonConvert.DeserializeObject<dynamic>(str2);
 
-                    var find = FindItem(avail, product_id, ref store_id);
+                    //var find = FindItem(avail, product_id, ref store_id);
+                    var find = FindItemByStore(avail, store_id, product_id);
 
                     if (find)
                     {
@@ -64,6 +65,12 @@ namespace faster
             }
 
             e.Result = new { StoreId = store_id, ProductId = product_id };
+        }
+
+        bool FindItemByStore(dynamic json, string store, string product)
+        {
+            string v = json[store][product];
+            return v == "ALL";
         }
 
         bool FindItem(dynamic json, string product_id, ref string result)
