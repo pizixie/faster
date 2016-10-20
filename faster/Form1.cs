@@ -41,7 +41,10 @@ namespace faster
             while (true)
             {
                 if (worker1.CancellationPending)
-                    throw new Exception("取消");
+                {
+                    e.Cancel = true;
+                    return;
+                }
 
                 try
                 {
@@ -96,6 +99,11 @@ namespace faster
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (e.Cancelled == true)
+            {
+                return;
+            }
+
             if (e.Error != null)
             {
                 worker1.RunWorkerAsync();
