@@ -96,6 +96,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="双月业绩总结表-201608-谢志红.xlsx" />
     <None Include="播放列表接口定义.docx" />
   </ItemGroup>
   <ItemGroup>
