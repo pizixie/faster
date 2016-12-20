@@ -13,6 +13,10 @@ CN-iPhone 7P——MNFT2CH/A
 <option value="10143">iPhone 7</option>
 <option value="10142">iPhone 7 Plus</option>
 
+型号代码2
+<option value="10162">iPhone 7</option>
+<option value="10161">iPhone 7 Plus</option>
+
 容量代码
 32GB
 128GB
